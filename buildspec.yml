@@ -1,8 +1,11 @@
 version: 0.2
+ env:
+  secrets-manager:
+    TOEKN : myToken : toeknForSonar
 phases:
   install:
     runtime-versions:
       java: latest
   build:
     commands:
-      - mvn clean verify sonar:sonar -Dsonar.projectKey=cybersandyorg -Dsonar.organization=cybersandyorg -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=2182f4883693b02b13434b934f507bbcaf674ef9
+      - mvn clean verify sonar:sonar -Dsonar.projectKey=cybersandyorg -Dsonar.organization=cybersandyorg -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$TOEKN
