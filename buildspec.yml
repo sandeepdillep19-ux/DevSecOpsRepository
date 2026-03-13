@@ -1,16 +1,21 @@
 version: 0.2
+
 env:
   secrets-manager:
-    TOEKN: myToken:tokenForSonar
+    TOEKN: "myToken:tokenForSonar"
+
 phases:
   install:
     runtime-versions:
-      java: latest
+      java: corretto17
+
   build:
     commands:
       - mvn clean verify sonar:sonar -Dsonar.projectKey=cybersandyorg -Dsonar.organization=cybersandyorg -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$TOEKN
-  - sleep 5
-  - | -
-    quality_status = $(curl -s -u $TOEKN : https://sonarcloud.io/api/qualitygates/project_status?projectKey = cybersandyorg | jq -r '.projectStatus.status')
-    echo"sonarcloud analysisstatus is $quality_status";
-    if[$quality_status = "Error"] ; then exit 1 ;f1
+      - sleep 5
+      - |
+        quality_status=$(curl -s -u $TOEKN: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=cybersandyorg" | jq -r '.projectStatus.status')
+        echo "SonarCloud analysis status is $quality_status"
+        if [ "$quality_status" = "ERROR" ]; then
+          exit 1
+        fi
