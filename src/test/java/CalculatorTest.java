@@ -10,7 +10,6 @@ public class CalculatorTest {
         int sum = calculator.addition("5+2");
         assertEquals(7, sum);
     }
-	
 	@Test
     public void verifyAdditionTwo() {
 
